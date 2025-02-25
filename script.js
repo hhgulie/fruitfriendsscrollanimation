@@ -16,7 +16,16 @@ document.addEventListener('scroll', function() {
     let scrollY = window.scrollY; // Get vertical scroll position
     let height = window.innerHeight; // Get viewport height
     let index = Math.floor(scrollY / height); // Determine section index
+    let maxScroll = document.body.scrollHeight - height; // Total scrollable height
+    let percentage = scrollY / maxScroll; // Scroll percentage
     
     // Update blueberry text based on the current section
-    blueberryText.innerText = messages[index] || 'Welcome to the story!';
+    blueberryText.innerText = messages[index+1] || '<3';
+    
+    // Move text from left to right based on scroll position
+    let moveDistance = percentage * (window.innerWidth - blueberryText.clientWidth);
+    blueberryText.style.transform = `translateX(${moveDistance}px)`;
 });
+
+// Initial styling for smooth movement
+blueberryText.style.position = 'absolute';
